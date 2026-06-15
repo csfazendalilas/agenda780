@@ -140,9 +140,10 @@ function setHrefOrHide(id, url) {
   if (url) e.setAttribute('href', url); else e.style.display = 'none';
 }
 // Estado global
-let slotsGlobais = [];        // todos os slots livres (médico + enfermagem) — buscados fresco a cada uso
+let slotsGlobais = [];        // todos os slots livres (médico + enfermagem)
 let slotsExibidos = [];       // os que aparecem no select (após filtro de fluxo)
 let currentStep = 1;
+let horariosCarregados = false; // pré-carregado (p/ "Outras consultas" ser instantâneo)
 
 // Fluxo de triagem ativo (pré-natal / puericultura / preventivo) ou null para "Outras consultas".
 // { tipo: 'prenatal'|'puericultura'|'preventivo', professional: 'F'|'O', triagem: {...} }
@@ -276,7 +277,24 @@ function ordenarSlots(slots) {
 }
 
 /**
- * Exibe os horários na tela (usa dados já carregados se disponíveis)
+ * Pré-carrega os horários em background ao abrir o site (deixa "Outras consultas" instantâneo).
+ * Silencioso: se falhar, o carregarHorarios busca na hora.
+ */
+async function preCarregarHorarios() {
+  try {
+    if (!API_URL || API_URL.includes('SEU_ID_AQUI')) return;
+    const resp = await fetch(API_URL + '?action=getSlots', { method: 'GET', mode: 'cors', cache: 'no-cache' });
+    if (!resp.ok) return;
+    const json = await resp.json();
+    slotsGlobais = ordenarSlots(extrairSlots(json));
+    horariosCarregados = true;
+  } catch (err) {
+    // ignora — busca fresco depois
+  }
+}
+
+/**
+ * Exibe os horários na tela (busca fresco na triagem; usa o pré-carregado em "Outras consultas").
  */
 async function carregarHorarios() {
   const loading = document.getElementById('loading');
@@ -287,24 +305,25 @@ async function carregarHorarios() {
   formContainer.style.display = 'none';
 
   try {
-    // SEMPRE busca fresco no momento de escolher o horário (depois da triagem / ao abrir
-    // "Outras consultas"). Evita lista velha caso alguém tenha agendado durante a triagem.
-    if (!API_URL || API_URL.includes('SEU_ID_AQUI')) {
-      throw new Error('URL do Google Apps Script não configurada. Verifique a constante API_URL no código.');
-    }
-
-    const url = API_URL + '?action=getSlots';
-    const resp = await fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' });
-
-    if (!resp.ok) {
-      if (resp.status === 404) {
-        throw new Error('Script não encontrado. Verifique se o Google Apps Script está publicado corretamente.');
+    // Triagem (pré-natal/puericultura/preventivo) demora preenchendo → busca FRESCO ao escolher.
+    // "Outras consultas" usa o pré-carregado (instantâneo), a menos que ainda não tenha chegado.
+    const precisaBuscar = fluxoTriagem || !horariosCarregados;
+    if (precisaBuscar) {
+      if (!API_URL || API_URL.includes('SEU_ID_AQUI')) {
+        throw new Error('URL do Google Apps Script não configurada. Verifique a constante API_URL no código.');
       }
-      throw new Error('Erro ao carregar horários (HTTP ' + resp.status + ')');
+      const url = API_URL + '?action=getSlots';
+      const resp = await fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' });
+      if (!resp.ok) {
+        if (resp.status === 404) {
+          throw new Error('Script não encontrado. Verifique se o Google Apps Script está publicado corretamente.');
+        }
+        throw new Error('Erro ao carregar horários (HTTP ' + resp.status + ')');
+      }
+      const json = await resp.json();
+      slotsGlobais = ordenarSlots(extrairSlots(json));
+      horariosCarregados = true;
     }
-
-    const json = await resp.json();
-    slotsGlobais = ordenarSlots(extrairSlots(json));
 
     // Filtra pelo profissional do fluxo de triagem (F=médico, O=enfermagem). Sem triagem = todos.
     slotsExibidos = fluxoTriagem
@@ -701,6 +720,9 @@ async function enviarAgendamento(event) {
       throw new Error(res.error || 'Não foi possível agendar. Tente outro horário.');
     }
 
+    // Invalida o cache: a próxima "Outras consultas" busca fresco (não mostra a vaga recém-ocupada).
+    horariosCarregados = false;
+
     msgDiv.className = 'msg sucesso';
     msgDiv.innerHTML = construirResumoAgendamento(slot, nome, telefone, dataNascimento, observacoes);
 
@@ -968,8 +990,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // ⚙️ Carrega textos/WhatsApp/serviços de _config e _services (mantém estático se falhar).
   carregarConfig();
 
-  // Os horários NÃO são pré-carregados — buscamos fresco só ao chegar na escolha de horário
-  // (depois da triagem / ao abrir "Outras consultas"), pra lista nunca ficar velha.
+  // 🔄 Pré-carrega horários (deixa "Outras consultas" instantâneo). Triagem sempre busca fresco.
+  preCarregarHorarios();
 
   // Máscaras
   const dataNascInput = document.getElementById('dataNascimento');
