@@ -3,7 +3,7 @@
 // ============================================
 // Web App da planilha 780 (deploy via clasp).
 const API_URL = 'https://script.google.com/macros/s/AKfycbxE6yRTJCa_dI7OmirMoKCN-sKgVeiO-5y8-ojKVcVoPqppHt8IV_4GhfS86eZ9n_1R/exec';
-const WHATSAPP_DESTINO = '5548920039171';
+let WHATSAPP_DESTINO = '5548920039171'; // sobrescrito por _config.whatsapp (getConfig)
 
 /**
  * Adapta a resposta do backend novo (slot_id) para o formato que este front já usa.
@@ -23,6 +23,121 @@ function extrairSlots(json) {
       origem: (s.professional_type === 'enfermagem') ? 'O' : 'F'
     };
   });
+}
+
+// ============================================
+// CONFIG DINÂMICA (_config / _services via getConfig)
+// ============================================
+async function carregarConfig() {
+  try {
+    const resp = await fetch(API_URL + '?action=getConfig', { method: 'GET', mode: 'cors', cache: 'no-cache' });
+    if (!resp.ok) return;
+    const json = await resp.json();
+    if (json && json.ok && json.data) {
+      aplicarConfig(json.data.config || {}, json.data.services || []);
+    }
+  } catch (e) {
+    // Sem rede / backend: mantém os textos estáticos do HTML (defaults sensatos).
+  }
+}
+
+// Aplica os valores de _config nos elementos da home (só sobrescreve o que vier preenchido).
+function aplicarConfig(config, services) {
+  const teamName = config.team_name || 'Equipe';
+  const teamCode = config.team_code != null ? String(config.team_code) : '';
+  const titulo = teamName + (teamCode && teamName.indexOf(teamCode) < 0 ? ' - ' + teamCode : '');
+
+  setText('cfg-team-name', titulo);
+  setText('cfg-unit-name', config.unit_name);
+  setText('cfg-addr-title', config.unit_name);
+  setText('cfg-footer', '© 2026 ' + titulo + (config.unit_name ? '. ' + config.unit_name : '') + '.');
+
+  if (config.whatsapp) WHATSAPP_DESTINO = String(config.whatsapp).replace(/\D/g, '');
+
+  // Avisos
+  showOrHideText('cfg-alert-default', 'cfg-intro-alert', config.intro_alert);
+  setText('cfg-urgencia', config.urgencia_text);
+
+  // Alô Saúde
+  applyBlock('cfg-alo-card', !!(config.alo_saude_phone || config.alo_saude_tel), function () {
+    if (config.alo_saude_tel) setAttr('cfg-alo-card', 'href', 'tel:' + String(config.alo_saude_tel).replace(/\D/g, ''));
+    setText('cfg-alo-title', config.alo_saude_label);
+    setText('cfg-alo-desc', config.alo_saude_desc);
+    setText('cfg-alo-phone', config.alo_saude_phone);
+  });
+
+  // Fila de espera
+  setHrefOrHide('cfg-fila-municipal', config.fila_municipal_url);
+  setHrefOrHide('cfg-fila-estadual', config.fila_estadual_url);
+
+  // Odontologia
+  applyBlock('cfg-odonto-card', !!config.odonto_whatsapp, function () {
+    setAttr('cfg-odonto-card', 'href', 'https://wa.me/' + String(config.odonto_whatsapp).replace(/\D/g, ''));
+    setText('cfg-odonto-text', config.odonto_text);
+    setText('cfg-odonto-num', config.odonto_whatsapp_label);
+  });
+
+  // Endereço / mapa
+  if (config.address) {
+    const html = String(config.address).split(/\\n|\r?\n/).map(escapeHtml).join('<br>');
+    const el = document.getElementById('cfg-addr-text');
+    if (el) el.innerHTML = html;
+  }
+  setHrefOrHide('cfg-maps', config.maps_url);
+
+  aplicarServices(services);
+}
+
+// Mostra/esconde os botões de serviço conforme _services (a lista só traz os habilitados).
+function aplicarServices(services) {
+  if (!services || !services.length) return; // sem dados: mantém o estático
+
+  ['prenatal', 'puericultura', 'preventivo'].forEach(function (id) {
+    const b = document.querySelector('[data-tipo="' + id + '"]');
+    if (b) b.style.display = 'none';
+  });
+  const renov = document.getElementById('cfg-card-renovacao');
+  if (renov) renov.style.display = 'none';
+  let temGeral = false;
+
+  services.forEach(function (svc) {
+    if (!svc.enabled) return;
+    const id = svc.service_id;
+    if (id === 'prenatal' || id === 'puericultura' || id === 'preventivo') {
+      const b = document.querySelector('[data-tipo="' + id + '"]');
+      if (b) {
+        b.style.display = '';
+        const strong = b.querySelector('.featured-btn-content strong');
+        const span = b.querySelector('.featured-btn-content span');
+        if (strong && svc.label) strong.textContent = svc.label;
+        if (span && svc.description) span.textContent = svc.description;
+      }
+    } else if (id === 'renovacao') {
+      if (renov) renov.style.display = '';
+    } else if (id === 'medico' || id === 'enfermagem') {
+      temGeral = true;
+    }
+  });
+
+  const outras = document.getElementById('cfg-card-outras');
+  if (outras) outras.style.display = temGeral ? '' : 'none';
+}
+
+// Helpers de injeção (não sobrescrevem com vazio).
+function setText(id, t) { const e = document.getElementById(id); if (e && t != null && t !== '') e.textContent = t; }
+function setAttr(id, a, v) { const e = document.getElementById(id); if (e) e.setAttribute(a, v); }
+function applyBlock(cardId, visible, fill) {
+  const c = document.getElementById(cardId); if (!c) return;
+  if (!visible) { c.style.display = 'none'; return; }
+  if (fill) fill();
+}
+function showOrHideText(cardId, textId, t) {
+  if (t == null || t === '') { const c = document.getElementById(cardId); if (c) c.style.display = 'none'; return; }
+  setText(textId, t);
+}
+function setHrefOrHide(id, url) {
+  const e = document.getElementById(id); if (!e) return;
+  if (url) e.setAttribute('href', url); else e.style.display = 'none';
 }
 // Estado global
 let slotsGlobais = [];        // todos os slots livres (médico + enfermagem)
@@ -898,6 +1013,9 @@ function inicializarTriagem() {
 // INICIALIZAÇÃO
 // ============================================
 document.addEventListener('DOMContentLoaded', function () {
+  // ⚙️ Carrega textos/WhatsApp/serviços de _config e _services (mantém estático se falhar).
+  carregarConfig();
+
   // 🔄 PRÉ-CARREGA OS HORÁRIOS EM BACKGROUND (assim que o site abre)
   preCarregarHorarios();
 

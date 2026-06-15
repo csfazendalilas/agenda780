@@ -28,8 +28,8 @@
           </svg>
         </div>
         <div class="logo-text">
-          <span class="logo-title">Equipe Verde - 780</span>
-          <span class="logo-subtitle">Centro de Saúde Fazenda do Rio Tavares</span>
+          <span class="logo-title" id="cfg-team-name">Equipe Verde - 780</span>
+          <span class="logo-subtitle" id="cfg-unit-name">Centro de Saúde Fazenda do Rio Tavares</span>
         </div>
       </div>
     </header>
@@ -94,7 +94,7 @@
           </div>
 
           <!-- 2. Renovação de medicamentos -->
-          <a href="https://forms.gle/hSNekJWonoEqcntFA" target="_blank" class="intro-card-item intro-card-clickable">
+          <a id="cfg-card-renovacao" href="https://forms.gle/hSNekJWonoEqcntFA" target="_blank" class="intro-card-item intro-card-clickable">
             <h3>
               <span class="icon">💊</span>
               Renovação de medicamentos
@@ -106,7 +106,7 @@
           </a>
 
           <!-- 3. Outras consultas (Agendamentos) -->
-          <div class="intro-card-item highlight intro-card-clickable" data-action="agendar">
+          <div id="cfg-card-outras" class="intro-card-item highlight intro-card-clickable" data-action="agendar">
             <h3>
               <span class="icon">📅</span>
               Outras consultas
@@ -118,14 +118,14 @@
           </div>
 
           <!-- Alô Saúde Floripa -->
-          <a href="tel:08003333233" class="intro-card-item intro-card-clickable">
+          <a id="cfg-alo-card" href="tel:08003333233" class="intro-card-item intro-card-clickable">
             <h3>
               <span class="icon icon-green">📞</span>
-              Alô Saúde Floripa
+              <span id="cfg-alo-title">Alô Saúde Floripa</span>
             </h3>
-            <p>Orientação médica 24h por telefone, vídeo ou chat. Gratuito e ilimitado. <strong>Ligue antes de ir ao posto ou UPA!</strong></p>
+            <p id="cfg-alo-desc">Orientação médica 24h por telefone, vídeo ou chat. Gratuito e ilimitado. <strong>Ligue antes de ir ao posto ou UPA!</strong></p>
             <span class="intro-link" style="font-size: 1.1em; font-weight: 600;">
-              📱 0800 333 3233
+              📱 <span id="cfg-alo-phone">0800 333 3233</span>
             </span>
           </a>
 
@@ -137,12 +137,12 @@
             </h3>
             <p>Acompanhe sua posição na fila de espera de requisições, encaminhamentos e exames.</p>
             <div class="fila-buttons">
-              <a href="https://florianopolis.celk.com.br/lista-publica" target="_blank" class="fila-btn fila-btn-municipal">
+              <a id="cfg-fila-municipal" href="https://florianopolis.celk.com.br/lista-publica" target="_blank" class="fila-btn fila-btn-municipal">
                 <span class="fila-btn-icon">🏛️</span>
                 <span class="fila-btn-text">Fila Municipal</span>
                 <span class="fila-btn-arrow">→</span>
               </a>
-              <a href="https://listadeespera.saude.sc.gov.br/" target="_blank" class="fila-btn fila-btn-estadual">
+              <a id="cfg-fila-estadual" href="https://listadeespera.saude.sc.gov.br/" target="_blank" class="fila-btn fila-btn-estadual">
                 <span class="fila-btn-icon">🏢</span>
                 <span class="fila-btn-text">Fila Estadual</span>
                 <span class="fila-btn-arrow">→</span>
@@ -153,25 +153,23 @@
 
         <!-- Alertas e informações importantes -->
         <div class="intro-alerts">
-          <div class="alert alert-default">
-            <strong>📍 Ou procure o Centro de Saúde Fazenda do Rio Tavares</strong>
-            às 07h, quando são entregues as fichas para atendimento do dia.
+          <div class="alert alert-default" id="cfg-alert-default">
+            <strong>📍 Atenção</strong>
+            <span id="cfg-intro-alert">Ou procure o Centro de Saúde às 07h, quando são entregues as fichas para atendimento do dia.</span>
           </div>
 
           <div class="alert alert-danger">
             <strong>🚨 Urgências e Emergências</strong>
-            Ligue SAMU 192 ou procure a UPA Sul, HU ou Hospital Celso Ramos.
+            <span id="cfg-urgencia">Ligue SAMU 192 ou procure a UPA Sul, HU ou Hospital Celso Ramos.</span>
           </div>
 
-          <a href="https://wa.me/554892187877" target="_blank" class="alert alert-success alert-clickable">
+          <a id="cfg-odonto-card" href="https://wa.me/554892187877" target="_blank" class="alert alert-success alert-clickable">
             <strong>🦷 Atendimento odontológico</strong>
-            <p>
-              <strong>Presencial:</strong> Centro de Saúde do Campeche a partir das 7h (Dra. Júlia).<br>
-              Atendimentos por ordem de chegada (3 a 4 fichas diárias).
+            <p id="cfg-odonto-text">
+              Presencial no Centro de Saúde do Campeche a partir das 7h (ordem de chegada). Agendamento via WhatsApp para crianças até 10 anos, gestantes e idosos (+60).
             </p>
             <p>
-              <strong>Agendamento via WhatsApp:</strong> Crianças até 10 anos, gestantes e idosos (+60)<br>
-              <span class="alert-link">📱 48 9218-7877 →</span>
+              <span class="alert-link">📱 <span id="cfg-odonto-num">48 9218-7877</span> →</span>
             </p>
           </a>
         </div>
@@ -579,10 +577,10 @@
         <div class="info-card info-card-full">
           <div class="info-icon">📍</div>
           <div class="info-content">
-            <strong>Centro de Saúde Fazenda do Rio Tavares</strong>
-            <address>R. Ingá Mirim, S/N° - Ribeirão da Ilha<br>Florianópolis - SC, 88064-082</address>
+            <strong id="cfg-addr-title">Centro de Saúde Fazenda do Rio Tavares</strong>
+            <address id="cfg-addr-text">R. Ingá Mirim, S/N° - Ribeirão da Ilha<br>Florianópolis - SC, 88064-082</address>
           </div>
-          <a href="https://maps.google.com/?q=Centro+de+Saude+Fazenda+do+Rio+Tavares+Florianopolis" target="_blank"
+          <a id="cfg-maps" href="https://maps.google.com/?q=Centro+de+Saude+Fazenda+do+Rio+Tavares+Florianopolis" target="_blank"
             rel="noopener noreferrer" class="info-card-action" aria-label="Ver localização no Google Maps">
             Ver no mapa →
           </a>
@@ -592,7 +590,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p>© 2026 Equipe Verde - 780. Centro de Saúde Fazenda do Rio Tavares.</p>
+      <p id="cfg-footer">© 2026 Equipe Verde - 780. Centro de Saúde Fazenda do Rio Tavares.</p>
     </footer>
   </div>
 
