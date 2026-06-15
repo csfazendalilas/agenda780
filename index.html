@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Agendamento de Consulta | Equipe Verde - 780</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles/base.css">
+</head>
+
+<body>
+
+  <div class="page-wrapper">
+    <!-- Background decorativo -->
+    <div class="bg-pattern" aria-hidden="true"></div>
+
+    <!-- Header com branding -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">Equipe Verde - 780</span>
+          <span class="logo-subtitle">Centro de Saúde Fazenda do Rio Tavares</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Container principal -->
+    <main class="main-container">
+      <!-- CARD INTRO - Tela inicial -->
+      <div id="intro-card" class="card">
+        <div class="card-header">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Bem-vindo(a)
+          </div>
+          <h1>Como podemos ajudar?</h1>
+          <p class="description">
+            Centro de Saúde Fazenda do Rio Tavares.
+            Escolha uma das opções abaixo.
+          </p>
+        </div>
+
+        <div class="intro-grid">
+          <!-- 1. Saúde da Mulher e da Criança (Gestantes, Crianças até 2 anos, Preventivo) -->
+          <div class="intro-card-item intro-card-featured">
+            <h3>
+              Saúde da Mulher e da Criança
+            </h3>
+            <p>Acompanhamento de gestantes, crianças e exames preventivos.</p>
+            <div class="featured-buttons">
+              <button type="button" class="featured-btn" data-action="triagem" data-tipo="prenatal">
+                <span class="featured-btn-icon">🤰</span>
+                <div class="featured-btn-content">
+                  <strong>Pré-natal</strong>
+                  <span>Acompanhamento de gestantes</span>
+                </div>
+                <span class="featured-btn-arrow">→</span>
+              </button>
+              <button type="button" class="featured-btn" data-action="triagem" data-tipo="puericultura">
+                <span class="featured-btn-icon">👶</span>
+                <div class="featured-btn-content">
+                  <strong>Puericultura</strong>
+                  <span>Rotina de crianças até 2 anos</span>
+                </div>
+                <span class="featured-btn-arrow">→</span>
+              </button>
+              <button type="button" class="featured-btn" data-action="triagem" data-tipo="preventivo">
+                <span class="featured-btn-icon">🩷</span>
+                <div class="featured-btn-content">
+                  <strong>Preventivo</strong>
+                  <span>Exame preventivo do colo do útero</span>
+                </div>
+                <span class="featured-btn-arrow">→</span>
+              </button>
+              <a href="https://forms.gle/9Kkq8irMLtpYLUUM9" target="_blank" class="featured-btn">
+                <span class="featured-btn-icon">T</span>
+                <div class="featured-btn-content">
+                  <strong>DIU</strong>
+                  <span>Inserção ou troca do dispositivo</span>
+                </div>
+                <span class="featured-btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 2. Renovação de medicamentos -->
+          <a href="https://forms.gle/hSNekJWonoEqcntFA" target="_blank" class="intro-card-item intro-card-clickable">
+            <h3>
+              <span class="icon">💊</span>
+              Renovação de medicamentos
+            </h3>
+            <p>Solicite a renovação das suas receitas de uso contínuo.</p>
+            <span class="intro-link">
+              Acessar formulário
+            </span>
+          </a>
+
+          <!-- 3. Outras consultas (Agendamentos) -->
+          <div class="intro-card-item highlight intro-card-clickable" data-action="agendar">
+            <h3>
+              <span class="icon">📅</span>
+              Outras consultas
+            </h3>
+            <p>Agende consultas que não sejam de agendamento específico ou urgentes através do nosso formulário online.</p>
+            <span class="intro-link">
+              Agendar consulta
+            </span>
+          </div>
+
+          <!-- Alô Saúde Floripa -->
+          <a href="tel:08003333233" class="intro-card-item intro-card-clickable">
+            <h3>
+              <span class="icon icon-green">📞</span>
+              Alô Saúde Floripa
+            </h3>
+            <p>Orientação médica 24h por telefone, vídeo ou chat. Gratuito e ilimitado. <strong>Ligue antes de ir ao posto ou UPA!</strong></p>
+            <span class="intro-link" style="font-size: 1.1em; font-weight: 600;">
+              📱 0800 333 3233
+            </span>
+          </a>
+
+          <!-- Fila de espera -->
+          <div class="intro-card-item">
+            <h3>
+              <span class="icon icon-blue">📋</span>
+              Fila de espera
+            </h3>
+            <p>Acompanhe sua posição na fila de espera de requisições, encaminhamentos e exames.</p>
+            <div class="fila-buttons">
+              <a href="https://florianopolis.celk.com.br/lista-publica" target="_blank" class="fila-btn fila-btn-municipal">
+                <span class="fila-btn-icon">🏛️</span>
+                <span class="fila-btn-text">Fila Municipal</span>
+                <span class="fila-btn-arrow">→</span>
+              </a>
+              <a href="https://listadeespera.saude.sc.gov.br/" target="_blank" class="fila-btn fila-btn-estadual">
+                <span class="fila-btn-icon">🏢</span>
+                <span class="fila-btn-text">Fila Estadual</span>
+                <span class="fila-btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alertas e informações importantes -->
+        <div class="intro-alerts">
+          <div class="alert alert-default">
+            <strong>📍 Ou procure o Centro de Saúde Fazenda do Rio Tavares</strong>
+            às 07h, quando são entregues as fichas para atendimento do dia.
+          </div>
+
+          <div class="alert alert-danger">
+            <strong>🚨 Urgências e Emergências</strong>
+            Ligue SAMU 192 ou procure a UPA Sul, HU ou Hospital Celso Ramos.
+          </div>
+
+          <a href="https://wa.me/554892187877" target="_blank" class="alert alert-success alert-clickable">
+            <strong>🦷 Atendimento odontológico</strong>
+            <p>
+              <strong>Presencial:</strong> Centro de Saúde do Campeche a partir das 7h (Dra. Júlia).<br>
+              Atendimentos por ordem de chegada (3 a 4 fichas diárias).
+            </p>
+            <p>
+              <strong>Agendamento via WhatsApp:</strong> Crianças até 10 anos, gestantes e idosos (+60)<br>
+              <span class="alert-link">📱 48 9218-7877 →</span>
+            </p>
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD AGENDAMENTO - Formulário -->
+      <div id="agendamento-card" class="card hidden">
+        <!-- Progress Steps -->
+        <div class="progress-steps" role="navigation" aria-label="Etapas do agendamento">
+          <div class="step active" data-step="1">
+            <span class="step-number">1</span>
+            <span class="step-label">Horário</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step" data-step="2">
+            <span class="step-number">2</span>
+            <span class="step-label">Dados</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step" data-step="3">
+            <span class="step-number">3</span>
+            <span class="step-label">Confirmar</span>
+          </div>
+        </div>
+
+        <!-- Seção do título -->
+        <div class="card-header">
+          <h1>Agende sua consulta</h1>
+          <p class="description">
+            Selecione o melhor horário para você e preencha seus dados.
+            <strong>Leva menos de 2 minutos.</strong>
+          </p>
+          <div class="alert alert-warning agendamento-alert">
+            <strong>Importante</strong>
+            <p>
+              Caso não haja horários disponíveis para consulta, ou caso os horários disponíveis não atendam à sua necessidade, orientamos procurar o Centro de Saúde Fazenda do Rio Tavares às 7h, quando são distribuídas as fichas para atendimento no mesmo dia.
+            </p>
+          </div>
+        </div>
+
+        <!-- Loading state -->
+        <div id="loading" class="loading-container">
+          <div class="loading-card">
+            <div class="pulse-ring"></div>
+            <div class="loading-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
+            <p class="loading-text">Buscando horários disponíveis...</p>
+          </div>
+        </div>
+
+        <!-- Formulário -->
+        <div id="form-container" class="form-container" style="display:none;">
+          <form id="agendamento-form" novalidate>
+            <div id="form-fields" class="form-fields">
+
+              <!-- Campo: Data e horário -->
+              <div class="form-group form-group-highlight">
+                <label for="slotSelect">
+                  <span class="label-icon">📅</span>
+                  Data e horário
+                </label>
+                <div class="select-wrapper">
+                  <select id="slotSelect" name="slot" required aria-required="true" aria-describedby="slotSelect-error">
+                    <option value="">Escolha um horário</option>
+                  </select>
+                  <span class="select-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </span>
+                </div>
+                <span id="slotSelect-error" class="error-message" role="alert"></span>
+              </div>
+
+              <div class="form-divider">
+                <span>Seus dados</span>
+              </div>
+
+              <!-- Campo: Nome -->
+              <div class="form-group">
+                <label for="nome">
+                  <span class="label-icon">👤</span>
+                  Nome completo
+                </label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required
+                  aria-required="true" aria-describedby="nome-error" autocomplete="name">
+                <span id="nome-error" class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Grid de 2 colunas para campos menores -->
+              <div class="form-row">
+                <!-- Campo: Data de nascimento -->
+                <div class="form-group">
+                  <label for="dataNascimento">
+                    <span class="label-icon">🎂</span>
+                    Data de nascimento
+                  </label>
+                  <input type="text" id="dataNascimento" name="dataNascimento" placeholder="DD/MM/AAAA" maxlength="10"
+                    required aria-required="true" aria-describedby="dataNascimento-error" autocomplete="bday">
+                  <span id="dataNascimento-error" class="error-message" role="alert"></span>
+                </div>
+
+                <!-- Campo: Telefone -->
+                <div class="form-group">
+                  <label for="telefone">
+                    <span class="label-icon">📱</span>
+                    Telefone (WhatsApp)
+                  </label>
+                  <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required
+                    aria-required="true" aria-describedby="telefone-error" autocomplete="tel">
+                  <span id="telefone-error" class="error-message" role="alert"></span>
+                </div>
+              </div>
+
+              <!-- Campo: Motivo da consulta -->
+              <div class="form-group">
+                <label for="observacoes">
+                  <span class="label-icon">📋</span>
+                  Motivo da consulta
+                </label>
+                <textarea id="observacoes" name="observacoes"
+                  placeholder="Descreva brevemente o motivo da sua consulta..." required aria-required="true"
+                  aria-describedby="observacoes-error" rows="3"></textarea>
+                <span id="observacoes-error" class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Botão de envio -->
+              <button type="submit" class="btn btn-primary" id="submit-btn">
+                <span class="btn-text">Confirmar agendamento</span>
+                <span class="btn-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </span>
+              </button>
+
+              <!-- Botão voltar -->
+              <button type="button" class="btn btn-secondary" data-action="voltar">
+                <span class="btn-text">Voltar ao início</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Mensagem de feedback -->
+          <div id="mensagem" class="msg" style="display:none;" role="status" aria-live="polite"></div>
+
+          <!-- Botão WhatsApp -->
+          <div id="whatsapp-container" class="whatsapp-container" style="display:none;">
+            <div class="whatsapp-alert">
+              <div class="alert-icon">⚠️</div>
+              <div class="alert-content">
+                <strong>Último passo!</strong>
+                <p>Clique no botão abaixo para confirmar pelo WhatsApp. Sem isso, o horário não fica reservado.</p>
+              </div>
+            </div>
+
+            <a id="whatsapp-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-large">
+              <span class="btn-icon-left">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+              </span>
+              <span class="btn-text">Confirmar no WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TRIAGEM: Pré-natal ===== -->
+      <div id="card-prenatal" class="card hidden">
+        <div class="card-header">
+          <div class="badge badge-pink">
+            <span class="badge-dot"></span>
+            Pré-natal
+          </div>
+          <h1>Informações da gestação</h1>
+          <p class="description">Responda as perguntas abaixo para direcionarmos você corretamente.</p>
+        </div>
+
+        <form id="form-prenatal" class="form-fields">
+          <div class="form-group">
+            <label class="form-label"><span class="label-icon">📅</span> Quando foi a data da sua última consulta?</label>
+            <div class="option-cards">
+              <label class="option-card">
+                <input type="radio" name="ultimaConsulta" value="primeira" required>
+                <span class="option-content">
+                  <span class="option-title">Primeira consulta</span>
+                  <span class="option-desc">Nunca fiz pré-natal</span>
+                </span>
+              </label>
+              <div class="option-with-field">
+                <label class="option-card">
+                  <input type="radio" name="ultimaConsulta" value="data">
+                  <span class="option-content">
+                    <span class="option-title">Informar data da última consulta</span>
+                    <span class="option-desc">Pode ser aproximadamente</span>
+                  </span>
+                </label>
+                <div id="campo-data-consulta" class="conditional-field-inline" style="display: none;">
+                  <input type="text" id="dataUltimaConsulta" class="input-field" placeholder="DD/MM/AAAA">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><span class="label-icon">📊</span> Quantas semanas de idade gestacional?</label>
+            <div class="option-cards">
+              <label class="option-card">
+                <input type="radio" name="semanasGestacao" value="nao_lembro" required>
+                <span class="option-content">
+                  <span class="option-title">Não lembro</span>
+                  <span class="option-desc">Descobrirei na consulta</span>
+                </span>
+              </label>
+              <div class="option-with-field">
+                <label class="option-card">
+                  <input type="radio" name="semanasGestacao" value="semanas">
+                  <span class="option-content">
+                    <span class="option-title">Sei quantas semanas</span>
+                    <span class="option-desc">Informar abaixo</span>
+                  </span>
+                </label>
+                <div id="campo-semanas" class="conditional-field-inline" style="display: none;">
+                  <div class="input-with-suffix">
+                    <input type="number" id="numeroSemanas" class="input-field" min="1" max="42" placeholder="Ex: 20">
+                    <span class="input-suffix">semanas</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><span class="label-icon">👨‍⚕️</span> Com quem foi sua última consulta?</label>
+            <div class="option-cards option-cards-row">
+              <label class="option-card">
+                <input type="radio" name="ultimoProfissional" value="medico" required>
+                <span class="option-content"><span class="option-icon">🩺</span><span class="option-title">Médico(a)</span></span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="ultimoProfissional" value="enfermeiro">
+                <span class="option-content"><span class="option-icon">💉</span><span class="option-title">Enfermeiro(a)</span></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary"><span class="btn-text">Continuar</span></button>
+            <button type="button" class="btn btn-secondary" data-action="voltar"><span class="btn-text">Voltar</span></button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ===== TRIAGEM: Puericultura ===== -->
+      <div id="card-puericultura" class="card hidden">
+        <div class="card-header">
+          <div class="badge badge-blue">
+            <span class="badge-dot"></span>
+            Puericultura
+          </div>
+          <h1>Consulta de rotina infantil</h1>
+          <p class="description">Acompanhamento do crescimento e desenvolvimento da criança.</p>
+        </div>
+
+        <div class="alert-box">
+          <div class="alert-box-header">
+            <span class="alert-box-icon">📋</span>
+            <strong>Calendário recomendado pelo Ministério da Saúde</strong>
+          </div>
+          <div class="alert-box-content">
+            <p>As consultas de puericultura seguem este calendário:</p>
+            <div class="calendar-grid">
+              <span class="calendar-item">Ao nascer</span>
+              <span class="calendar-item">1 mês</span>
+              <span class="calendar-item">2 meses</span>
+              <span class="calendar-item">4 meses</span>
+              <span class="calendar-item">6 meses</span>
+              <span class="calendar-item">9 meses</span>
+              <span class="calendar-item">12 meses</span>
+              <span class="calendar-item">1 ano e 6 meses</span>
+              <span class="calendar-item">2 anos</span>
+            </div>
+            <p class="alert-box-note"><strong>Atenção:</strong> Para outras consultas não previstas no calendário, procure o Centro de Saúde presencialmente.</p>
+          </div>
+        </div>
+
+        <form id="form-puericultura" class="form-fields">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="mesesCrianca"><span class="label-icon">👶</span> Quantos meses a criança tem?</label>
+              <div class="input-with-suffix">
+                <input type="number" id="mesesCrianca" class="input-field" min="0" max="24" placeholder="Ex: 6" required>
+                <span class="input-suffix">meses</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ultimaConsultaMeses"><span class="label-icon">📅</span> Última consulta foi com quantos meses?</label>
+              <div class="input-with-suffix">
+                <input type="number" id="ultimaConsultaMeses" class="input-field" min="0" max="24" placeholder="Ex: 4" required>
+                <span class="input-suffix">meses</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><span class="label-icon">👨‍⚕️</span> Com quem foi a última consulta?</label>
+            <div class="option-cards option-cards-row">
+              <label class="option-card">
+                <input type="radio" name="ultimoProfissionalPuericultura" value="medico" required>
+                <span class="option-content"><span class="option-icon">🩺</span><span class="option-title">Médico(a)</span></span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="ultimoProfissionalPuericultura" value="enfermeiro">
+                <span class="option-content"><span class="option-icon">💉</span><span class="option-title">Enfermeiro(a)</span></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary"><span class="btn-text">Continuar</span></button>
+            <button type="button" class="btn btn-secondary" data-action="voltar"><span class="btn-text">Voltar</span></button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ===== TRIAGEM: Preventivo ===== -->
+      <div id="card-preventivo" class="card hidden">
+        <div class="card-header">
+          <div class="badge badge-teal">
+            <span class="badge-dot"></span>
+            Preventivo
+          </div>
+          <h1>Exame Preventivo (Papanicolau)</h1>
+          <p class="description">Rastreio de câncer de colo do útero</p>
+        </div>
+
+        <div class="info-box info-box-teal">
+          <div class="info-box-header"><span class="info-box-icon">📖</span><strong>Como e por que fazer</strong></div>
+          <div class="info-box-content">
+            <div class="info-item"><span class="info-bullet">▸</span><div><strong>Quando iniciar:</strong> a partir dos 25 anos, para mulheres que já tiveram relação sexual.</div></div>
+            <div class="info-item"><span class="info-bullet">▸</span><div><strong>Periodicidade inicial:</strong> fazer 2 exames com resultado negativo, com intervalo de 1 ano entre eles.</div></div>
+            <div class="info-item"><span class="info-bullet">▸</span><div><strong>Após dois negativos:</strong> repetir a cada 3 anos, conforme orientação do Ministério da Saúde.</div></div>
+          </div>
+        </div>
+
+        <form id="form-preventivo" class="form-fields">
+          <div class="form-group">
+            <label class="form-label"><span class="label-icon">🎂</span> Você tem 25 anos ou mais?</label>
+            <div class="option-cards option-cards-row">
+              <label class="option-card">
+                <input type="radio" name="maiorQue25" value="sim" required>
+                <span class="option-content"><span class="option-icon">✅</span><span class="option-title">Sim</span></span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="maiorQue25" value="nao">
+                <span class="option-content"><span class="option-icon">❌</span><span class="option-title">Não</span></span>
+              </label>
+            </div>
+            <div id="aviso-menor-25" class="alert-inline alert-warning" style="display: none;">
+              <span class="alert-inline-icon">⚠️</span>
+              <div><strong>Rastreio não indicado</strong><p>Conforme orientação do Ministério da Saúde, o rastreio é recomendado a partir dos 25 anos. Converse com um profissional se tiver dúvidas.</p></div>
+            </div>
+          </div>
+
+          <div id="campo-ultimos-preventivos" class="form-group" style="display: none;">
+            <label class="form-label"><span class="label-icon">📅</span> Quando foram seus últimos preventivos?</label>
+            <p class="field-hint">Informe o ano em que realizou cada exame (aproximadamente)</p>
+            <div class="preventivo-anos">
+              <div class="preventivo-ano-group">
+                <label for="preventivo1">Penúltimo preventivo</label>
+                <input type="number" id="preventivo1" class="input-field" min="2000" max="2026" placeholder="Ex: 2022">
+              </div>
+              <div class="preventivo-ano-group">
+                <label for="preventivo2">Último preventivo</label>
+                <input type="number" id="preventivo2" class="input-field" min="2000" max="2026" placeholder="Ex: 2024">
+              </div>
+            </div>
+            <label class="checkbox-label">
+              <input type="checkbox" id="naoLembroPreventivos">
+              <span class="checkbox-custom"></span>
+              <span>Não lembro / Nunca fiz</span>
+            </label>
+            <div id="aviso-intervalo" class="alert-inline alert-info" style="display: none;">
+              <span class="alert-inline-icon">ℹ️</span>
+              <div><strong>Aviso</strong><p>Se você já fez 2 preventivos negativos e o último foi há menos de 3 anos, não é necessário repetir agora. Pode continuar se desejar.</p></div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="btn-preventivo-avancar" class="btn btn-primary" disabled><span class="btn-text">Avançar para agendamento</span></button>
+            <button type="button" class="btn btn-secondary" data-action="voltar"><span class="btn-text">Voltar</span></button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Info cards -->
+      <div class="info-section info-section-single">
+        <div class="info-card info-card-full">
+          <div class="info-icon">📍</div>
+          <div class="info-content">
+            <strong>Centro de Saúde Fazenda do Rio Tavares</strong>
+            <address>R. Ingá Mirim, S/N° - Ribeirão da Ilha<br>Florianópolis - SC, 88064-082</address>
+          </div>
+          <a href="https://maps.google.com/?q=Centro+de+Saude+Fazenda+do+Rio+Tavares+Florianopolis" target="_blank"
+            rel="noopener noreferrer" class="info-card-action" aria-label="Ver localização no Google Maps">
+            Ver no mapa →
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2026 Equipe Verde - 780. Centro de Saúde Fazenda do Rio Tavares.</p>
+    </footer>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
